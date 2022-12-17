@@ -1,5 +1,7 @@
-import React from "react"
-import { SafeAreaView, View, Text, FlatList, Image, StyleSheet } from "react-native"
+import React, { useState } from "react"
+import { SafeAreaView, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native"
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const App = () => {
   const data = [
@@ -47,41 +49,83 @@ const App = () => {
   const renderItem = ({ item }) => {
     return (
       <View style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, paddingRight: 20, borderBottomWidth: 1, borderColor: '#EAEAEA' }}>
+
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
           <Image source={require("./img/author.jpg")} style={{ width: 32, height: 32 }} />
           <Text style={styles.author}>{item.author}</Text>
         </View>
+
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <View style={{ flex: 3 }}>
             <Text style={styles.item_title}>
               {item.title}
             </Text>
-            <View style={{flex:1,flexDirection:'row',alignItems:'center'}}>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
               <Text style={styles.item_date}>
-                {item.date} 
+                {item.date}
               </Text>
-              <Text style={{marginLeft:3,marginRight:3,flexDirection:'row',alignItems:'center'}}>
+              <Text style={{ marginLeft: 3, marginRight: 3, flexDirection: 'row', alignItems: 'center' }}>
                 .
               </Text>
               <Text style={styles.item_date}>
-                {item.time}  
+                {item.time}
               </Text>
             </View>
           </View>
           <Image source={require("./img/img2.png")} style={{ flex: 1, height: 60, borderRadius: 5 }} />
         </View>
-        <View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text style={{ fontSize: 12, paddingTop: 6 }}>Selected for you</Text>
+          <View style={{flexDirection:'row'}}>
+            <IconAntDesign name="minuscircleo" size={20} />
+            <IconEntypo name="dots-three-vertical" size={20} />
+          </View>
         </View>
       </View>
     )
   }
+  const category = [
+    { id: 0, name: '+' },
+    { id: 1, name: 'For You' },
+    { id: 2, name: 'Following' },
+    { id: 3, name: 'Design' },
+    { id: 4, name: 'Technology' },
+  ]
+  const [activeItem, setActiveItem] = useState(1)
+
+  const categoryItem = ({ item }) => {
+
+    return (
+      <TouchableOpacity onPress={() => setActiveItem(item.id)} style={[{ marginLeft: 12, marginRight: 12, justifyContent: 'space-between' }]} >
+        <View>
+          <Text style={[item.id == activeItem && activeItem != 0 ? styles.activeItem : null, { paddingTop: 10, paddingBottom: 15, fontFamily: medium }]}>
+
+            {item.id == 0 ? <IconAntDesign name="plus" size={20} color="black" /> : item.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
+    )
+  }
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, paddingRight: 20, borderBottomWidth: 1, borderColor: '#EAEAEA' }}>
+    <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+      <View style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, paddingRight: 20, }}>
         <Text style={styles.text}>
           Home
         </Text>
+      </View>
+      <View style={{ borderBottomWidth: 1, borderColor: '#EAEAEA', paddingLeft: 10 }}>
+        <FlatList
+          // ItemSeparatorComponent={() => {
+          //   return (
+          //     <View
+          //       style={{
+          //         height: "100%",
+          //         width: 2,
+          //       }} />
+          //   );
+          // }} 
+          data={category} horizontal renderItem={categoryItem} keyExtractor={item => item.id} />
       </View>
       <FlatList data={data} renderItem={renderItem} keyExtractor={item => item.id} />
     </SafeAreaView>
@@ -95,6 +139,11 @@ const medium = 'Heebo-Medium';
 const regular = 'Heebo-Regular';
 
 const styles = StyleSheet.create({
+  activeItem: {
+    borderColor: 'black',
+    borderBottomWidth: 2,
+    color: 'black'
+  },
   text: {
     fontFamily: bold,
     color: '#000',
