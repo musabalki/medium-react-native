@@ -2,8 +2,14 @@ import React, { useState } from "react"
 import { SafeAreaView, View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native"
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
+
+import { useSelector,useDispatch } from "react-redux";
+
 
 const App = () => {
+const count = useSelector((state)=>state.counter.value)
+console.log(count)
   const data = [
     {
       "id": 1,
@@ -46,10 +52,11 @@ const App = () => {
       "time": "5 min read",
     },
   ]
+  const [initialData,setInitialData] = useState(data);
+
   const renderItem = ({ item }) => {
     return (
       <View style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, paddingRight: 20, borderBottomWidth: 1, borderColor: '#EAEAEA' }}>
-
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
           <Image source={require("./img/author.jpg")} style={{ width: 32, height: 32 }} />
           <Text style={styles.author}>{item.author}</Text>
@@ -74,11 +81,12 @@ const App = () => {
           </View>
           <Image source={require("./img/img2.png")} style={{ flex: 1, height: 60, borderRadius: 5 }} />
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text style={{ fontSize: 12, paddingTop: 6 }}>Selected for you</Text>
+        <View style={{paddingTop:5, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={{ fontSize: 13, paddingTop: 6 }}>Selected for you</Text>
           <View style={{flexDirection:'row'}}>
-            <IconAntDesign name="minuscircleo" size={20} />
-            <IconEntypo name="dots-three-vertical" size={20} />
+            <IconIonicons style={{marginRight:15}} name="bookmark-outline" size={20} />
+            <IconAntDesign style={{marginLeft:5,marginRight:15}} name="minuscircleo" size={20} />
+            <IconEntypo style={{marginLeft:5}} name="dots-three-vertical" size={20} />
           </View>
         </View>
       </View>
@@ -92,11 +100,36 @@ const App = () => {
     { id: 4, name: 'Technology' },
   ]
   const [activeItem, setActiveItem] = useState(1)
+  const filterData = (id) =>{
+    setActiveItem(id)
+    if(id==2){
 
+      setInitialData([
+        {
+          "id": 81,
+          "author": "Lorem Ipsum 1",
+          "author_img": "",
+          "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          "date": "Nov 17",
+          "time": "5 min read",
+        },
+        {
+          "id": 92,
+          "author": "Lorem Ipsum 2",
+          "author_img": "",
+          "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          "date": "Nov 17",
+          "time": "5 min read",
+        },
+      ])
+    }
+    else{
+      setInitialData(data)
+    }
+  }
   const categoryItem = ({ item }) => {
-
     return (
-      <TouchableOpacity onPress={() => setActiveItem(item.id)} style={[{ marginLeft: 12, marginRight: 12, justifyContent: 'space-between' }]} >
+      <TouchableOpacity onPress={() => filterData(item.id) } style={[{ marginLeft: 12, marginRight: 12, justifyContent: 'space-between' }]} >
         <View>
           <Text style={[item.id == activeItem && activeItem != 0 ? styles.activeItem : null, { paddingTop: 10, paddingBottom: 15, fontFamily: medium }]}>
 
@@ -111,8 +144,13 @@ const App = () => {
     <SafeAreaView style={{ flex: 1, position: 'relative' }}>
       <View style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 20, paddingRight: 20, }}>
         <Text style={styles.text}>
-          Home
+          Home 
         </Text>
+        {/* <TouchableOpacity onPress={()=>dispatch(increment())}>
+          <Text>
+            test
+          </Text>
+        </TouchableOpacity> */}
       </View>
       <View style={{ borderBottomWidth: 1, borderColor: '#EAEAEA', paddingLeft: 10 }}>
         <FlatList
@@ -127,7 +165,7 @@ const App = () => {
           // }} 
           data={category} horizontal renderItem={categoryItem} keyExtractor={item => item.id} />
       </View>
-      <FlatList data={data} renderItem={renderItem} keyExtractor={item => item.id} />
+      <FlatList data={initialData} renderItem={renderItem} keyExtractor={item => item.id} />
     </SafeAreaView>
   )
 }
