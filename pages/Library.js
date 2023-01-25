@@ -36,17 +36,21 @@ const Library = () => {
                 </Text>
             </View>
             <View style={{ borderBottomWidth: 1, borderColor: '#EAEAEA', paddingLeft: 10 }}>
-            <FlatList
-                // ItemSeparatorComponent={() => {
-                //   return (
-                //     <View
-                //       style={{
-                //         height: "100%",
-                //         width: 2,
-                //       }} />
-                //   );
-                // }} 
-                data={category} horizontal renderItem={categoryItem} keyExtractor={item => item.id} />
+              <FlatList
+                  // ItemSeparatorComponent={() => {
+                  //   return (
+                  //     <View
+                  //       style={{
+                  //         height: "100%",
+                  //         width: 2,
+                  //       }} />
+                  //   );
+                  // }} 
+                  data={category} horizontal renderItem={categoryItem} keyExtractor={item => item.id} />
+            </View>
+            <View style={{backgroundColor:'#e6e6e6',marginLeft:20,marginRight:20,marginTop:20,borderRadius:5,padding:30}}>
+              <Text style={{fontWeight:'900',fontSize:20,color:'black'}}>Reading List</Text>
+              <Text style={{fontWeight:'400',}}>Reading List</Text>
             </View>
         </SafeAreaView>
     )
