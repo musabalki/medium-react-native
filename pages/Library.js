@@ -52,6 +52,14 @@ const Library = () => {
               <Text style={{fontWeight:'900',fontSize:20,color:'black'}}>Reading List</Text>
               <Text style={{fontWeight:'400',}}>Reading List</Text>
             </View>
+            <View style={{backgroundColor:'#e6e6e6',marginLeft:20,marginRight:20,marginTop:20,borderRadius:5,padding:30}}>
+              <Text style={{fontWeight:'900',fontSize:20,color:'black'}}>Popular List</Text>
+              <Text style={{fontWeight:'400',}}>Popular List</Text>
+            </View>
+            <View style={{backgroundColor:'#e6e6e6',marginLeft:20,marginRight:20,marginTop:20,borderRadius:5,padding:30}}>
+              <Text style={{fontWeight:'900',fontSize:20,color:'black'}}>Favorite List</Text>
+              <Text style={{fontWeight:'400',}}>Favorite List</Text>
+            </View>
         </SafeAreaView>
     )
 }

@@ -6,7 +6,9 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const category = [
-    { id: 1, name: 'Saved' },
+    { id: 1, name: 'Stories' },
+    { id: 2, name: 'Lists' },
+    { id: 3, name: 'About' },
   ]
 
 
@@ -16,7 +18,6 @@ const Library = () => {
           <TouchableOpacity onPress={() => filterData(item.id) } style={[{ marginLeft: 12, marginRight: 12, justifyContent: 'space-between' }]} >
             <View>
               <Text style={[item.id == activeItem && activeItem != 0 ? styles.activeItem : null, { paddingTop: 10, paddingBottom: 15, fontFamily: medium }]}>
-    
                 {item.id == 0 ? <IconAntDesign name="plus" size={20} color="black" /> : item.name}
               </Text>
             </View>
@@ -37,7 +38,32 @@ const Library = () => {
                     </Text>
                 </View>
            </View>
-           
+           <View style={{flexDirection:'row',padding:10}}>
+              <TouchableOpacity style={{margin:2,flex:1,backgroundColor:'black',borderRadius:50,paddingTop:5,border:0,paddingBottom:5}}>
+                <Text style={{color:'white',textAlign:'center'}}>View stats</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{margin:2,flex:1,backgroundColor:'white',borderRadius:50,paddingTop:5,borderWidth:1,paddingBottom:5}}>
+                <Text style={{color:'black',textAlign:'center'}}>Edit your profile</Text>
+              </TouchableOpacity>
+           </View>
+           <View style={{ borderBottomWidth: 1, borderColor: '#EAEAEA',  }}>
+              <FlatList
+                  // ItemSeparatorComponent={() => {
+                  //   return (
+                  //     <View
+                  //       style={{
+                  //         height: "100%",
+                  //         width: 2,
+                  //       }} />
+                  //   );
+                  // }} 
+                  data={category} horizontal renderItem={categoryItem} keyExtractor={item => item.id} />
+            </View>
+            <View style={{padding:20}}>
+              <Text style={{fontSize:20,textAlign:'center'}}>
+                You don't have any public posts.
+              </Text>
+            </View>
         </SafeAreaView>
     )
 }
