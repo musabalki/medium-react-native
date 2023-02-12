@@ -27,14 +27,14 @@ const Library = () => {
       }
       const [activeItem, setActiveItem] = useState(1)
     return (
-        <SafeAreaView>
+        <SafeAreaView  style={{ flex: 1, position: 'relative',backgroundColor:"#fff" }}>
            <View style={{flexDirection:'row',alignContent:'center',margin:15}}>
                 <View style={{width:50,height:50,borderRadius:100,justifyContent:'center',backgroundColor:'green'}}>
                     <Text style={{color:'white',textAlign:'center',fontSize:30}}>M</Text>
                 </View>
                 <View style={{alignItems:'center', justifyContent:'center',paddingLeft:16}}>
                     <Text style={styles.text}>
-                        Musa Balkı
+                        MB
                     </Text>
                 </View>
            </View>

@@ -26,7 +26,7 @@ const Library = () => {
       }
       const [activeItem, setActiveItem] = useState(1)
     return (
-        <SafeAreaView>
+        <SafeAreaView  style={{ flex: 1, position: 'relative',backgroundColor:"#fff" }}>
            <View style={{flexDirection:'row',alignItems:'center', justifyContent:'space-between', paddingTop: 20, paddingBottom: 20, paddingLeft: 20, paddingRight: 20, }}>
                 <Text style={styles.text}>
                 Your library
